@@ -73,6 +73,7 @@ Plugins/*/Intermediate/*
 # Cache files for the editor to use
 DerivedDataCache/*
 
-#StarterContent
+#Content
 Content/StarterContent/*
+Content/ParagonGreystone/*
 Content/Maps/*
