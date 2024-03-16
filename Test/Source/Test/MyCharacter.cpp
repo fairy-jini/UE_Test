@@ -39,6 +39,8 @@ void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	animInstance = Cast<UMyAnimInstance>(GetMesh()->GetAnimInstance());
+	animInstance->OnMontageEnded.AddDynamic(this, &AMyCharacter::OnAttackMontageEnded);
 }
 
 // Called every frame
@@ -63,11 +65,12 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 void AMyCharacter::Attack()
 {
-	auto animInstance = Cast<UMyAnimInstance>( GetMesh()->GetAnimInstance() );
-	if (animInstance)
-	{
-		animInstance->PlayAttackMontage();
-	}
+	if (isAttacking)
+		return;
+
+	animInstance->PlayAttackMontage();
+
+	isAttacking = true;
 }
 
 void AMyCharacter::UpDown(float value)
@@ -91,4 +94,9 @@ void AMyCharacter::LeftRight(float value)
 void AMyCharacter::Yaw(float value)
 {
 	AddControllerYawInput(value);
+}
+
+void AMyCharacter::OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
+{
+	isAttacking = false;
 }
