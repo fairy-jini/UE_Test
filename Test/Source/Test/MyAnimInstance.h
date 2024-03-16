@@ -6,15 +6,17 @@
 #include "Animation/AnimInstance.h"
 #include "MyAnimInstance.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class TEST_API UMyAnimInstance : public UAnimInstance
 {
 	GENERATED_BODY()
 
+public:
+	UMyAnimInstance();
+
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
+
+	void PlayAttackMontage();
 
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Pawn, Meta=(AllowPrivateAccess=true))
@@ -22,4 +24,7 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, Meta = (AllowPrivateAccess = true))
 	bool isFalling;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, Meta = (AllowPrivateAccess = true))
+	UAnimMontage* attackMontage;
 };
