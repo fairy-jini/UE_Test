@@ -70,6 +70,9 @@ void AMyCharacter::Attack()
 
 	animInstance->PlayAttackMontage();
 
+	animInstance->JumpToSection(AttackIndex);
+	AttackIndex = (AttackIndex + 1) % 3;
+
 	isAttacking = true;
 }
 
