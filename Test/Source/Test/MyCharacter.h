@@ -16,6 +16,8 @@ public:
 	AMyCharacter();
 
 protected:
+	virtual void PostInitializeComponents() override;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -27,6 +29,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	void Attack();
+	void AttackCheck();
 
 	void UpDown(float value);
 	void LeftRight(float value);
