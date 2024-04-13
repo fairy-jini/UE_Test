@@ -34,9 +34,9 @@ AMyCharacter::AMyCharacter()
 		GetMesh()->SetSkeletalMesh(SM.Object);
 	}
 
-	//FName WeaponScoekt(TEXT("hand_l_socket"));
+	//FName WeaponSocket(TEXT("hand_l_socket"));
 
-	//if (GetMesh()->DoesSocketExist(WeaponScoekt))
+	//if (GetMesh()->DoesSocketExist(WeaponSocket))
 	//{
 	//	Weapon = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WEAPON"));
 
@@ -47,7 +47,7 @@ AMyCharacter::AMyCharacter()
 	//		Weapon->SetStaticMesh(SW.Object);
 	//	}
 
-	//	Weapon->SetupAttachment(GetMesh(), WeaponScoekt);
+	//	Weapon->SetupAttachment(GetMesh(), WeaponSocket);
 	//}
 }
 
@@ -74,9 +74,9 @@ void AMyCharacter::BeginPlay()
 
 	if (CurrentWeapon)
 	{
-		CurrentWeapon->AttachToComponent(GetMesh()
-			, FAttachmentTransformRules::SnapToTargetNotIncludingScale
-			, WeaponScoekt);
+		//CurrentWeapon->AttachToComponent(GetMesh()
+		//	, FAttachmentTransformRules::SnapToTargetNotIncludingScale
+		//	, WeaponScoekt);
 	}
 }
 
