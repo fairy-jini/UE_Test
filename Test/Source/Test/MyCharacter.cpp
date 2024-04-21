@@ -9,6 +9,8 @@
 #include "DrawDebugHelpers.h"
 #include "MyWeapon.h"
 #include "MyStatComponent.h"
+#include "Components/WidgetComponent.h"
+#include "MyCharacterWidget.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -36,6 +38,18 @@ AMyCharacter::AMyCharacter()
 	}
 
 	Stat = CreateDefaultSubobject<UMyStatComponent>(TEXT("STAT"));
+
+	HpBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("HPBAR"));
+	HpBar->SetupAttachment(GetMesh());
+	HpBar->SetRelativeLocation(FVector(0.f, 0.f, 220.f));
+	HpBar->SetWidgetSpace(EWidgetSpace::Screen);
+
+	static ConstructorHelpers::FClassFinder<UUserWidget> UW(TEXT("WidgetBlueprint'/Game/UI/WBP_HpBar.WBP_HpBar_C'"));
+	if (UW.Succeeded())
+	{
+		HpBar->SetWidgetClass(UW.Class);
+		HpBar->SetDrawSize(FVector2D(200.f, 50.f));
+	}
 }
 
 void AMyCharacter::PostInitializeComponents()
@@ -47,6 +61,15 @@ void AMyCharacter::PostInitializeComponents()
 	{
 		animInstance->OnMontageEnded.AddDynamic(this, &AMyCharacter::OnAttackMontageEnded);
 		animInstance->OnAttackHit.AddUObject(this, &AMyCharacter::AttackCheck);
+	}
+
+	HpBar->InitWidget();
+
+	// Binding
+	auto HpWidget = Cast<UMyCharacterWidget>(HpBar->GetUserWidgetObject());
+	if (HpWidget)
+	{
+		HpWidget->BindHp(Stat);
 	}
 }
 
